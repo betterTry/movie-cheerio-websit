@@ -1,0 +1,223 @@
+extends ../layout
+block head
+	link(href="/css/s_result.css", rel="stylesheet")
+block content
+	.container
+		mixin inform(item)
+			.s_poster
+				img(src="#{item.poster}" ,alt="海报")
+			.s_list
+				.s_base
+					h3.base_name
+						span.c_highred #{item.base_name.name}
+						span #{item.base_name.span}
+					span.base_type #{item.base_name.base_type}
+				.s_info
+					if item.s_info.s_direct
+						span.s_direct
+							| 导演:
+							em #{item.s_info.s_direct}
+					else if item.s_info.s_collect
+						span.s_collect
+							em #{item.s_info.s_collect}
+					span.s_area
+						| 地区:
+						em #{item.s_info.s_area}
+					span.s_figure
+						| #{item.s_info.s_figure_type}：
+						- var length = item.s_info.s_figure.length
+						- for(var i = 0 ; i < length ; i++)
+							if(i != length-1)
+								em= item.s_info.s_figure[i]+'/'
+							else
+								em= item.s_info.s_figure[i]
+					.s_intr
+						span.intr_area
+							| 剧情简介
+							i.arr_down
+						.intr_info #{item.s_info.intr_info}
+							span.arrup
+								em
+				case item.type
+					when 'movie'
+						if item.s_href !== 'none'
+							.s_act
+								a.btn_play(href="#{item.s_href}?n=#{item.name}")
+									i.ico_arrr
+									| 播放正片
+						else
+							.s_act_no 该影片优酷也没有资源哦
+					when 'tv'
+						if item.s_items.length
+							.s_act
+								a.btn_play(href="#{item.s_items[0]}?n=#{item.name}&i=1")
+									i.ico_arrr
+									| 播放
+							.s_itemsBox
+								ul.s_items.clearfix
+									- for(var i = 0 ;i < item.s_items.length; i++)
+										li
+											a(href="#{item.s_items[i]}?n=#{item.name}&i=#{i+1}") #{i+1}
+						else
+							.s_act_no 该影片优酷也没有资源哦
+						
+					when 'variety'
+						.s_act
+							a.btn_play(href="#{item.s_items[0].href}?n=#{item.name}&d=#{item.s_items[0].year}-#{item.s_items[0].reg}")
+								i.ico_arrr
+								| 播放
+						.s_itemsBox
+							ul.s_items.clearfix
+								if item.s_items[0].pic
+									- for(var i = 0 ; i < item.s_items.length; i++)
+										if i < 2
+											li.hot
+												a(href="#{item.s_items[i].href}?n=#{item.name}&d=#{item.s_items[i].year}-#{item.s_items[i].reg}")
+													.pic
+														img(src="#{item.s_items[i].pic}")
+														span #{item.s_items[i].year}-#{item.s_items[i].reg}
+													.info
+														.tit
+															span.reg #{item.s_items[i].reg}
+															| #{item.s_items[i].tit}
+														p
+															span 嘉宾：
+															| #{item.s_items[i].guest}
+										else
+											li
+												a(href="#{item.s_items[i].href}?n=#{item.name}&d=#{item.s_items[i].year}-#{item.s_items[i].reg}")
+													span.name
+														i.reg #{item.s_items[i].reg}
+														| #{item.s_items[i].tit}
+								else 
+									each _item in item.s_items
+										li
+											a(href="#{_item.href}?n=#{item.name}&d=#{_item.year}-#{_item.reg}")
+													span.name
+														i.reg #{_item.reg}
+														| #{_item.tit}
+		if noresult
+			.card.bgg
+				if from == 'ysl'
+					| 没有查询结果，管理员会陆续更新~看官可浏览近期更新内容~
+					br
+					| 建议看官单击上方搜索，切换为优酷搜索哦
+				else
+					| 优酷也没有查询到该资源哦~
+					br
+					| 看官可浏览近期更新内容~
+		else
+			each item in resObj
+				.card
+					.s_dir
+						case item.type
+							when 'movie'
+								.s_movie.clearfix
+									+inform(item)
+							when 'tv'
+								.s_tv.clearfix
+									+inform(item)
+							when 'variety'
+								.s_variety.clearfix
+									+inform(item)
+			if from == 'ysl'
+				.card.bgg 看官如果对内站搜索结果不满，可以通过上方切换为优酷搜索哦~
+			else
+				.card.bgg 通过内站进行搜索速度更快哦，可以通过上方切换为内站搜索哦~
+
+	script.
+		$(function(){
+			var open = true;
+			var t1 , t2;
+			$('.s_dir').each(function(index ,item){
+				$(item).find('.intr_area').mouseover(function(){
+					if(open)
+						clearTimeout(t2)
+						t1 = setTimeout(function(){
+							$(item).find('.s_intr').addClass('open');
+							open = false;
+						},200)
+					open = true;
+				});
+				$(item).find('.intr_area').mouseout(function(){
+					if(!open)
+						clearTimeout(t1)
+						t2 = setTimeout(function(){
+							$(item).find('.s_intr').removeClass('open');
+							open = true;
+						},200)
+					open = false;
+				});
+				//给intr_info坐标;
+				var w = $(item).find('.s_intr').position().left;
+				var _w = $(item).find('.s_intr').width();
+				$(item).find('.arrup').css('left' , w + _w/2 + 'px');
+			})
+			
+			
+
+			if($('.s_variety').length){
+				$.each($('.s_variety') , function(index, item){
+					var s_items = $(item).find('.s_items');
+					var s_item = s_items.find('li');
+					var length = s_item.length;
+					if(length > 10){
+						var s_li_more = $('<li class="li_more"><a><i>展开更多<i></a></li>');
+						var s_li_all = $('<li class="li_all" style="display:none"><a>查看全部 共' + length + '期</a></li>');
+						var s_li_less = $('<li class="li_less" style="display:none"><a>收起<span class="arr_up"></span></a></li>');
+						s_item.eq(8).after(s_li_more);
+						s_items.append(s_li_all);
+						s_items.append(s_li_less);
+						for(var i = 9; i < length ; i++)
+							s_item.eq(i).css('display' , 'none');
+						s_li_more.click(function(){
+							for(var i = 9; i < length ; i++)
+								s_item.eq(i).css('display' , 'block');
+							s_items.find('.li_less , .li_all').css('display' , 'block');
+							$(this).css('display' , 'none');
+						});
+						s_li_less.click(function(){
+							for(var i = 9; i < length ; i++)
+								s_item.eq(i).css('display' , 'none');
+								s_li_more.css('display' , 'block');
+								s_items.find('.li_less , .li_all').css('display' , 'none');
+						});
+					}
+				})
+			}
+
+			if($('.s_tv').length){
+				$.each($('.s_tv') , function(index , item){
+					var s_items = $(item).find('.s_items');
+					var s_item = s_items.find('li');
+					var length = s_item.length;
+					if(length > 50){
+						var s_li_more = $('<li class="li_more"><a>...</a><li>');
+						var s_li_less = $('<li class="li_less" style="display:none"><a><span class="arr_up"></span></a></li>');
+						var s_li_all = $('<li class="li_all" style="display:none"><a>全部</a></li>');
+						s_item.eq(48).after(s_li_more);
+						s_items.append(s_li_all);
+						s_items.append(s_li_less);
+						for(var i = 49 ; i < length ; i++)
+							s_item.eq(i).css('display' , 'none');
+						s_li_more.click(function(){
+							for(var i = 49; i < length ; i++)
+								s_item.eq(i).css('display' , 'block');
+							s_items.find('.li_less , .li_all').css('display' , 'block');
+							$(this).css('display' , 'none');
+						});
+						s_li_less.click(function(){
+							for(var i = 49; i < length ; i++)
+								s_item.eq(i).css('display' , 'none');
+							s_li_more.css('display' , 'block');
+							s_items.find('.li_less , .li_all').css('display' , 'none');
+						});
+					}
+				})
+			}
+
+
+		});
+		
+								
+					

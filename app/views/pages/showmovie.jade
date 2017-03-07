@@ -1,0 +1,73 @@
+extends ../layout
+block head
+	link(href="/css/showmovie.css",rel="stylesheet")
+block content
+
+	.movie
+		.card.clearfix
+			.movieTitle.clearfix
+				h4.cate [#{cate}]
+				h4.name #{name}
+				h4.info
+					if movie
+						- var type = movie.type
+						if type == 'variety'
+							if date
+								- var _date = date.split('-')
+								- var year = _date[0]
+								- var reg = _date[1] + _date[2]
+								| #{year}#{reg}
+						else if type == 'tv'
+							if index
+								| 第#{index}集
+					else
+						if date
+							- var _date = date.split('-')
+							- var year = _date[0]
+							- var reg = _date[1] + _date[2]
+							| #{year}#{reg}
+						if index
+							| 第#{index}集
+			.moviearea
+				.playbox
+					iframe(src="http://player.youku.com/embed/#{movieid}==",name="videobox" scrolling="no",frameborder="0" , width="100%",height='100%')
+				.danmuarea
+					.showdanmu
+						.danmuwrap
+					.emitdanmu
+						#danmuinfo
+							#danmuface
+							#danmufont
+							#danmuclear
+							#danmufacearea
+							#danmufontarea
+								p 彩色弹幕设置
+								ul.danmucolorlist.clearfix
+									li
+										div.danmucolor.selected(id="danmucolor0",data-color="0")
+										i
+									- for(var i = 1 ; i < 7; i++)
+										li
+											div.danmucolor(id="danmucolor#{i}",data-color="#{i}")
+											i
+								.arrdown
+									i
+						if user
+							form#danmuform
+								textarea#emitarea(row="2",placeholder="聊天发射~")
+								button(type="submit")#emitbtn 发送
+						else
+							.nouserform
+								.nouserarea
+									span.danmusignin(data-toggle='modal',data-target='#sUpModal') 登录
+									| 才能发射弹幕哦~
+								.nouserbtn 发送
+
+	if user
+		script(src="/js/socket.io.js")
+		script(src="/js/danmu.js")
+			
+		
+
+		
+

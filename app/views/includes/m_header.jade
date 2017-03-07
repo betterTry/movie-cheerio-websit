@@ -1,0 +1,146 @@
+._navbar.navbar.navbar-fixed-top
+	.container-fluid
+		.navbar-heading.clearfix
+			a.navbar-brand(href="/") my
+		.m_searchBox
+			form#m_form(role="form",action="/movie/search",method="POST")
+				.m_inputBox
+					input#m_search(type='text',name="m")
+					input#m_search_tool(type="hidden" , name="tool" , value="内站")
+				.m_search_btn.glyphicon.glyphicon-search(style="overflow:hidden")
+					span.m_ysl 优酷
+		#mobel_userBox
+			if user
+				.m_headbox
+					img(src= user.head)
+			else
+				#m_su.m_userbtn
+					a(href="signup") |&nbsp;注册
+				#m_si.m_userbtn
+					a(href="signin") 登录&nbsp;
+if user
+	.m_infoBox
+		.m_headbox_big
+			img(src= user.head)
+		.m_info_content
+			h5 #{user.name}
+			if user.role >= 10
+				h5 
+					a(href="/admin/control") 管理员后台
+			h5 
+				a(href="/user/private") 个人中心
+			h5.logout
+				a(href="/logout") 退出
+
+script.
+	function getPos(event){
+		var e = event || window.event;
+		var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		var x = e.pageX || e.clientX + scrollX;
+		var y = e.pageY || e.clientY + scrollY;
+		return {x: x , y: y}
+	}
+	function getWandH(elem){
+		var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		var w = 0 , h = 0;
+		do{
+			w += elem.offsetLeft;
+			h += elem.offsetTop;
+		}
+		while((elem = elem.offsetParent) && elem.offsetParent )
+		return {w: w + scrollX , h: h + scrollY}
+	}
+
+	$(function(){
+		$('.inphd').val(location.pathname);
+		$('.logout a').attr('href' , '/logout?p='+location.pathname);
+
+
+		//如果用户存在;
+		if($('.m_infoBox')){
+			var m_infoBox = $('.m_infoBox');
+			$('.m_headbox').click(function(){
+				//显示区域;
+				m_infoBox.addClass('m_info_show');
+				_self = $(this);
+				_self.css('display', 'none');
+
+				m_infoBox.on('transitionend', function(){
+					$(window).click(function(e){
+						var x = getPos().x,
+							_x = $(this).innerWidth()*0.5;
+						if(x < _x){
+							m_infoBox.removeClass('m_info_show');
+							_self.css('display', 'block');
+							m_infoBox.unbind('transitionend');
+							$(window).unbind('click');
+						}
+					})					
+				})
+			})
+		}
+
+		$('.m_search_btn').click(function(){
+			var m_inputBox = $('.m_inputBox');
+			var m_search_btn = $('.m_search_btn');
+
+			if($(this).hasClass('m_search_btn_choose')){
+				if(/^\s*$/.test($('#m_search').val())){
+					if(m_search_btn.hasClass('on')){
+						m_search_btn.removeClass('on').css('overflow' , 'hidden');
+					}
+					else{
+						m_search_btn.addClass('on').css('overflow' , 'visible');
+					}
+				}
+				else{
+					$('#m_form').submit();
+				}
+			}
+			else{
+				m_search_btn.addClass('m_search_btn_choose');
+				m_inputBox.addClass('m_inputBox_show');
+				var m_ysl = $('.m_ysl')[0];
+				$(window).on('touchstart', function(e){
+					var touches = e.originalEvent.touches;
+					var x = touches[0].clientX,
+						y = touches[0].clientY;
+					var w = getWandH(m_inputBox[0]).w,
+						h = getWandH(m_inputBox[0]).h,
+						_w = m_inputBox.innerWidth(),
+						_h = m_inputBox.innerHeight();
+					if(x < w || x > w + _w || y < h || y > h + _h && e.target !== m_ysl){
+						m_search_btn.removeClass('m_search_btn_choose');
+						m_inputBox.removeClass('m_inputBox_show');
+						$(window).unbind('touchstart');
+						if(m_search_btn.hasClass('on')){
+							m_search_btn.removeClass('on').css('overflow' , 'hidden');
+						}
+					}
+				})
+			}
+		});
+		
+		$('.m_ysl').click(function(e){
+			_self = $(this);
+			if(_self.text() === '优酷'){
+				_self.text('内站');
+				$('#m_search_tool').val('优酷');
+			}
+			else{
+				_self.text('优酷');
+				$('#m_search_tool').val('内站');
+			}
+			e.stopPropagation();
+			$('.m_search_btn').removeClass('on').css('overflow' , 'hidden');
+		})
+	})
+script(src="/js/check.js")
+		
+				
+			
+		
+
+		

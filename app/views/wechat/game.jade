@@ -1,0 +1,102 @@
+extends ../wechat
+
+block content
+	h1 点击标题，开始录音翻译
+	p#title
+	#director
+	#year
+	#post
+	script.
+			wx.config({
+			    debug: false, // 开启调试模式;
+			    appId: 'wx483c1e8ef78ed9e9', // 必填，公众号的唯一标识
+			    timestamp: '#{timestamp}', // 必填，生成签名的时间戳
+			    nonceStr: '#{noncestr}' , // 必填，生成签名的随机串
+			    signature: '#{signature}',// 必填，签名;
+			    jsApiList: [
+				    'onMenuShareTimeline',
+						'onMenuShareAppMessage',
+						'onMenuShareQQ',
+						'onMenuShareWeibo',
+						'onMenuShareQZone',
+						'startRecord',
+						'stopRecord',
+						'onVoiceRecordEnd',
+						'translateVoice',
+			    ]
+			});
+
+			var shareContent = {};
+			var slides = {};//图片预览的数组;
+			var isRecording = false;
+			wx.ready(function(){
+				$('#poster').on('tap',function(){
+					wx.previewImage();
+				})//在调用了语音识别之后slides会被重新赋值,得到海报图片的数据;
+
+				$('h1').on('tap' , function(){
+					if(!isRecording){
+						isRecording = true;
+						wx.startRecord({
+							cancle : function(){
+								window.alert('取消就不能猜到了哦~');
+							}
+						})
+						return ;
+					}
+									
+					isRecording = false;
+					wx.stopRecord({
+					    success: function (res) {
+					        var localId = res.localId;
+					      	wx.translateVoice({
+								   localId: localId, 
+								   isShowProgressTips: 1, 
+								   success: function(res) {
+							    		var result = res.translateResult;
+							        
+								      $.ajax({
+											type : 'get',
+											url : 'https://api.douban.com/v2/movie/search?q=' + result,
+											dataType : 'jsonp',
+											jsonp : 'callback',
+											success : function(data){
+												var subject = data.subjects[0]
+												$('#title').html(subject.title)
+												$('#year').html(subject.year)
+												$('#director').html(subject.directors[0].name)
+												$('#poster').html('<img src="' + subject.images.large + '"/>')
+												shareContent = {
+													title: subject.title, 
+												    desc: 我搜出来了 + 'subject.title',
+												    link: 'http://baidu.com', 
+												    imgUrl: subject.images.large,
+												    type: 'link',
+												    dataUrl: '', 
+												   success: function () { 
+												    	window.alert('分享成功')
+												   },
+												   cancel: function () { 
+												     	window.alert('分享失败')
+												   }
+												}//分享朋友圈的参数对象;
+
+												slides = {
+													current : subject.images.large,
+													urls : [subject.images.large]
+												}
+												data.subjects.forEach(function(item){
+													slides.urls.push(item.images.large)
+												})//得到所有的图片链接,以幻灯片的形式播放;
+
+											}
+							      	})
+							   	}
+								});
+					    	}
+					})
+				});//tap事件，结束录音翻译;
+				
+				wx.onMenuShareAppMessage(shareContent);//分享给朋友;
+
+			})//wx.ready结束;

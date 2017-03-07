@@ -1,0 +1,15 @@
+doctype
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" , content="initial-scale=1,width=device-width,user-scalable=no")
+		meta(http-equiv="X-UA-compatible" , content="IE=Edge")
+		title #{title}
+		include ./includes/head
+		link(href="/css/index.css",rel="stylesheet")
+		block head
+	body
+		include ./includes/header
+		block content
+
+		include ./foot

@@ -1,0 +1,549 @@
+.slider{
+	width: 225px;
+	height: 100%;
+	background-color: #171d1f;
+	position: fixed;
+	font-size: 1.8em;
+	text-align: center;
+	color: #7d868a;
+	top: 50px;
+	left: 0px;
+}
+
+.nav li{
+	float: left;
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	cursor: pointer;
+}
+.nav .active{
+	background-color: #1f2527;
+	border-left: 2px solid rgb(38 , 170, 128);
+}
+
+/* 右侧内容区 */
+.content{
+	margin-left: 225px;
+	height: 100%;
+	background-color: #f5f6f7;
+	text-align: center;
+	position: relative;
+	padding-top: 1px;
+}
+
+
+.slider .nav>li>a,
+.slider .nav>li>a:hover{
+	text-decoration: none;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	color: inherit;
+}
+.slider .nav>li>a:visited,
+.slider .nav>li>a:active{
+	background-color: transparent;
+	color: inherit;
+}
+
+
+/* 管理 */
+.usercate , .cate{
+	position: relative;
+	margin-bottom: 2px;
+}
+.usercate>span , .cate>span{
+	font-size: 1.4rem;
+	float: left;
+	margin: 5px 10px 0 10px;
+	width: 60px;
+	cursor: pointer;
+	overflow: visible;
+}
+/* 分类管理 */
+.cate span .catebtn{
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	font-size: 12px;
+}
+.cate .catebtn i{
+	display: inline;
+}
+.cate span:first-child>i{
+	display: block
+}
+.cateadd:hover{
+	color: #5cb85c
+}
+.catedel:hover{
+	color: #d00;
+}
+.catecho:hover{
+	color: #005687;
+}
+/* 第一个分类的展示列表 */
+.c_listbox{
+	display: none;
+	padding-top: 5px;
+	border-top: 1px solid #e3e3e3;
+}
+.c_listbox:nth-of-type(2){
+	display: block;
+}
+/* 添加分类的面板 */
+.addCateBox{
+	width: 400px;
+	height: 500px;
+	background: #fff;
+	box-shadow:5px 0px 5px rgba(90,90,90,.3);
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -200px;
+	padding: 20px;
+	display: none;
+}
+/* 关闭按钮 */
+.closeacb{
+	font-size: 20px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 5px;
+	cursor: pointer;
+}
+.closeacb:hover{
+	color: #f00;
+}
+
+/* 没有分类的列表 */
+.nocatelist{
+	width: 100%;
+}
+.nocatelist li{
+	width: 100%;
+	padding: 5px 0 5px 10px;
+	text-align: left;
+}
+.nocatelist li:nth-child(odd){
+	background-color: #f5f6f7;
+}
+.nocatelist span{
+	float: right;
+	cursor: pointer;
+	padding-right: 10px;
+}
+/* 批量删除 取消删除 */
+.nordels , .admAdd , .norcancel{
+	float: right;
+	padding: 0 5px;
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+.nordels:hover , .admAdd:hover{
+	text-decoration: underline;
+}
+/* 删除状态下的颜色 */
+.ondel{
+	color: rgb(38 , 170, 128);
+}/* 删除按钮的删除状态*/
+.ondels .nordels:hover{
+	text-decoration: none;
+}
+.ondels .Ucho{
+	display: inline-block;
+}/* norUbody 的删除状态*/
+.norUbody .choosed .Ucho em{
+	background-color: rgb(38 , 170, 128)
+}
+
+/* 添加管理员的面板 */
+.admAddPanel{
+	width: 300px;
+	padding: 20px;
+}
+/* 分类下标 */
+.btm{
+	width: 0;
+	height: 0;
+	display: inline-block;
+	border-width: 0 2px 2px 2px;
+	border-style: solid;
+	border-color: transparent transparent #33a3dc transparent;
+	position: absolute;
+	top: 25px;
+	left: 38px;
+	-webkit-transition: transform .2s;
+	-ms-transition: transform .2s;
+	transition: transform .2s;
+}
+.btm em{
+	width: 60px;
+	height: 1px;
+	background-color: #33a3dc;
+	display: inline-block;
+	position: absolute;
+	top: 2px;
+	left: -30px;
+}
+
+
+/* 用户管理列表 */
+.norUlist{
+	display: table;
+	width: 100%;
+}
+.adminUlist{
+	display: none;
+	width: 100%;
+}
+.norUbody , .adminUbody{
+	display: table-row-group;
+	width: 100%
+}
+.norUrow{
+	width: 100%;
+	height:24px;
+	line-height: 24px;
+	vertical-align: middle;
+
+}
+.norUcell{
+	float: left;
+	display: inline-block;
+	width: 50%;
+	position: relative;
+}
+.norUcell:nth-child(even){
+	border-left: solid 1px #ccc;
+}
+/* 是否选择的块*/
+.Ucho em , .Uname , .Udel{
+	display: inline-block;
+}
+.Ucho{
+	position: absolute;
+	display: none;
+	width: 25px;
+	height: 18px;
+	top: 3px;
+	left: 0px;
+}
+.Ucho em{
+	width: 18px;
+	height: 18px;
+	border-radius: 2px;
+	border: 1px solid #f3f3fe;
+}
+.Uname{
+	width: 80%;
+	text-overflow: ellipsis;
+}
+.Udel{
+	width: 40px;
+	cursor: pointer;
+}
+.Udel:hover{
+	color: #000;
+}
+
+
+/* 电影管理 */
+.add_del{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.add_del span{
+	cursor: pointer;
+}
+.addbtn:hover{
+	color: #5cb85c;
+}
+.delbtn:hover{
+	color: #f00;
+}
+.chobtn:hover{
+	color: #005687;
+}
+/* 电影分类 */
+.m_sort{
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	vertical-align: middle;
+	position: relative;
+	overflow: hidden;
+}
+.m_sort h5{
+	color: #909090;
+	text-align: left;
+	margin-top: 0;
+	width: 50px;
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+
+}
+.m_sortbox{
+	position: absolute;
+	top: -12px;
+	left: 50px;
+	box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	padding: 0 20px 10px 20px;
+	background-color: #fff;
+	border:1px solid transparent;
+}
+.m_sort_list{
+	display:inline-block;
+	font-size: 13px;
+	padding-top: 10px;
+	padding-right: 10px;
+	margin-bottom: 0;
+}
+.m_sort_list li{
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+.arrdown{
+	width: 0;
+	height: 0;
+	display: inline-block;
+	border-width: 6px 5px 0 5px;
+	border-style: solid;
+	border-color: #777 transparent transparent;
+	vertical-align: top;
+	margin-top: 18px;
+}
+.movie .m_show{
+	overflow: visible;
+}
+.m_show .m_sortbox{
+	border:1px solid #ccc;
+}
+
+/* 电影列表 */
+.on .m_item , .on .c_item{
+	cursor: pointer;
+}
+.m_item , .c_item{
+	width: 16.66%;
+	float: left;
+	padding:10px 6px 5px 6px;
+	text-align: left;
+}
+.m_list .choosed , .c_list .choosed{
+	border-top: 2px solid rgb(38 , 170, 128);
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-bottom: 3px;
+	box-shadow: 0 3px 3px rgba(90,90,90,.2)
+}
+.m_item img , .c_item img{
+	width: 100%;
+}
+.m_item h5 , .c_item h5{
+	margin-top: 5px;
+	margin-bottom: 3px;
+	white-space: nowrap;
+	line-height: 1.4;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.m_item p , .c_item p{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.m_item span , .c_item span{
+	margin-bottom: 0;
+}
+
+/* 添加电影的页面 */
+.addMovieBox{
+	width: 400px;
+	height: 500px;
+	position: absolute;
+	border: 1px solid #eee;
+	border-radius: 15px;
+	background-color: #fff;
+	padding: 30px 20px 20px 20px ;
+	bottom: 10px;
+	top: 50px;
+	left: 50%;
+	margin-left: -200px;
+	box-shadow: 5px 5px 5px 0 #eee;
+	display: none;
+}
+.addMovieBox .input-group-addon{
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	color: #fff;
+	cursor: pointer;
+	margin-left: -1px;
+}
+.addMovieBox .input-group-addon:hover{
+	background-color: #449d44;
+	border-color: #398439;
+}
+.closeBtn{
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	font-size: 20px;
+	color: #ccc;
+}
+.closeBtn:hover{
+	color: #666;
+	cursor: pointer;
+}
+/* 添加电影的结果 */
+.addMovieBox .searchRe{
+	width: 100%;
+	margin: 10px 0 0 0;
+	height: 410px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.searchRe::-webkit-scrollbar{
+	width: 10px;
+	height: 10px;
+}
+.searchRe::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+	border-radius: 5px;
+}
+.searchRe::-webkit-scrollbar-thumb{
+	height: 10px;
+	border-radius: 5px; 
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+	background-color: #bbb;
+}
+.s_dir{
+	position: relative;
+}
+.s_dir:not(:last-child){
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+.s_dir:hover{
+	background-color: #fbfcff;
+}
+
+.s_dir img{
+	width: 100px;
+	float: left;
+}
+.s_dir .s_name{
+	color: #5da7e6;
+}
+.s_dir .s_add{
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	color: #449d44;
+}
+.s_dir .sInfo{
+	width: 100%;
+	padding-left: 110px;
+}
+.sInfo h5{
+	margin-top: 5px;
+}
+.sInfo p:not(.s_figure){
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.s_add{
+	cursor: pointer;
+}
+
+/* 添加的状态 */
+.addState{
+	position: absolute;
+	width: 100px;
+	height: 40px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	top: 70px;
+	left: 50%;
+	margin-left: -50px;
+	line-height: 40px;
+	text-align: center;
+	box-shadow: 1px 1px 3px rgba(123,102,94,.3);
+	display: none;
+	background-color: #fff;
+	z-index: 10001;
+}
+.suc{
+	display: block;
+}
+.suc .addSuc{
+	display: block;
+}
+.suc .addDef{
+	display: none;
+}
+.addState .addSuc , .addState .addDaf{
+	width: 100%;
+	height: 100%;
+}
+.addSuc{
+	color: #4cae4c;
+	display: none;
+}
+.addDef{
+	color: #d00;
+}
+/* loading */
+.loading{
+	width: 40px;
+	height: 40px;
+	background-image: url(../img/loading.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 70px;
+	left: 50%;
+	margin-left: -20px;
+	display: none;
+}
+.rotate{
+	display: block;
+	animation-name: rotate;
+	animation-duration: 2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@keyframes rotate{
+	from{-webkit-transform: rotate(0);}
+	to{-webkit-transform: rotate(360deg);}
+}
+
+
+@media (max-width: 1200px){
+	.card{
+		min-width: 829px
+	}
+	.m_item{
+		width: 20%;
+	}
+	.addMovieBox{
+		width: 350px;
+		height: 450px;
+		border-radius: 10px;
+		margin-left: -170px;
+		left: 50%;
+	}
+	.addMovieBox .searchRe{
+		height: 360px;
+	}
+}

@@ -1,0 +1,75 @@
+extends ../layout
+block head
+	link(href="/css/common.css" , rel="stylesheet")
+block content
+	.container
+		.row
+			.bigPanel.blue.site-header
+				h1 Mx&nbsp;Ysl
+				p 通过站点，您可以查取到您想要的电影
+				.m_searchBox
+					form#m_form(role="form",action="/movie/search",method="POST")
+						.m_inputBox
+							input#m_search(type='text',name="m",placeholder='请尽量输入全称哦~')
+							input#m_search_tool(type="hidden" , name="tool" , value="内站")
+							| &nbsp;
+							.m_searchbtn.glyphicon.glyphicon-search(style="overflow:hidden")
+								span.m_ysl 优酷
+	.container.con
+		.card
+			.lastupdate
+				h3 最新更新
+				ul.lastupdatelist.clearfix
+					each item in movie
+						li.listitem
+							if item.type == 'movie'
+								a(href="#{item.s_href}")
+									img(src="#{item.poster}")
+							else if item.type == 'tv'
+								a(href="#{item.s_items[0]}")
+									img(src="#{item.poster}")
+							else if item.type == 'variety'
+								a(href="#{item.s_items[0].href}")
+									img(src="#{item.poster}")
+							.itemdep
+								h5 #{item.name}
+								p
+									| #{item.s_info.s_figure_type}：
+									-for(var i = 0 ; i < item.s_info.s_figure.length ; i++)
+										| #{item.s_info.s_figure[i]}
+										if i !==  item.s_info.s_figure.length - 1
+											| /
+	script.
+		$(function(){
+			$('.m_searchbtn').click(function(){
+				var m_searchbtn = $('.m_searchbtn');
+				if(/^\s*$/.test($('#m_search').val())){
+					if(m_searchbtn.hasClass('on')){
+						m_searchbtn.removeClass('on').css('overflow' , 'hidden');
+					}
+					else{
+						m_searchbtn.addClass('on').css('overflow' , 'visible');
+					}
+				}
+				else{
+					$('#m_form').submit();
+				}
+			})
+			$('.m_ysl').click(function(e){
+				_self = $(this);
+				if(_self.text() === '优酷'){
+					_self.text('内站');
+					$('#m_search_tool').val('优酷');
+				}
+				else{
+					_self.text('优酷');
+					$('#m_search_tool').val('内站');
+				}
+				e.stopPropagation();
+				$('.m_searchbtn').removeClass('on').css('overflow' , 'hidden');
+			})
+
+			
+		})
+
+					

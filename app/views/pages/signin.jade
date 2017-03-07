@@ -1,0 +1,23 @@
+extends ../layout
+block head
+	link(href="/css/signin_out.css", rel="stylesheet")
+block content
+	.container
+		.row
+			.card
+				.tip
+					h4 该页面需要管理员权限
+				.login
+					h1 登录
+					.col-xs-8
+						form.form-horizontal(method="POST",role="form",action="/user/signin")
+							.form-group
+								label.control-label.col-xs-2(for="username") 账号
+								.col-xs-9
+									input#username.form-control(type="text",name="user[username]",placeholder="管理员id")
+							.form-group
+								label.control-label.col-xs-2(for="password") 密码
+								.col-xs-9
+									input#password.form-control(type="password",name="user[password]",placeholder="密码")
+							button.btn.btn-primary.submit(type="submit") 提交
+					.col-xs-4

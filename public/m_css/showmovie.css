@@ -1,0 +1,69 @@
+html , body{
+	width: 100%;
+	height: 100%;
+	padding-top: 0;
+}
+.moviearea{
+	display: inline-block;
+	vertical-align: top;
+}
+.danmuarea{
+	display: inline-block;
+	vertical-align: top;
+	float: right;
+	width: 350px;
+	height: 600px;
+	border: 1px solid #ccc;
+	margin-left: 20px
+}
+
+@media (min-width: 1125px){
+	.card{
+		min-width: 1230px;
+	}
+	.card .moviearea{
+		width: 800px;
+		height: 600px;
+	}
+	
+}
+
+
+@media (max-width: 1125px){
+	.card {
+		min-width: 1038px
+	}
+	.card .moviearea{
+		width: 640px;
+		height: 480px;
+	}
+	.danmuarea{
+		width: 300px;
+		height: 480px;
+		border: 1px solid #ccc;
+		margin-left: 20px
+	}
+}
+
+@media (max-width: 769px){
+	.card{
+		margin: 10px;
+		padding: 10px;
+		max-width: 740px;
+		min-width: 300px;	
+		position: relative;
+	}
+	.card .moviearea{
+		width: 100%;
+	}
+	.danmuarea{
+		display: none
+	}
+}
+
+@media (max-width: 500px){
+	.card{
+		margin: 0;
+		padding: 10px 0;
+	}
+}

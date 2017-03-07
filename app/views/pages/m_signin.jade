@@ -1,0 +1,107 @@
+doctype
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" , content="initial-scale=1,width=device-width,user-scalable=no")
+		meta(http-equiv="X-UA-compatible" , content="IE=Edge")
+		title #{title}
+		include ../includes/head
+		link(href="/css/m_si_su.css" , rel="stylesheet")
+	body
+		.m_si_head
+			.m_si_out
+				a(href="javascript:history.back()")
+					span
+			.m_si_si 登录
+			.m_si_su
+		.m_si_middle
+			if si
+				.m_si.active 账号登录
+				.m_su 账号注册
+			else
+				.m_si 账号登录
+				.m_su.active 账号注册
+		.m_si_content
+			.m_si_box
+				form
+					label(for="m_si_username")
+						span.glyphicon.glyphicon-user
+						input#m_si_username(type="text" , placeholder="用户名 / 账号")
+					label(for="m_si_password")
+						span.glyphicon.glyphicon-lock
+						input#m_si_password(type="password" , placeholder="用户密码")
+					input.m_hd(type="hidden")
+			.m_si_btn 登录
+			.m_si_info 连接超时请重试
+	script.
+		$(function(){
+			$('.m_hd').val(location.pathname);
+			$('.m_si').click(function(){
+				$(this).addClass('active');
+				$(this).siblings().removeClass('active');
+				$('.m_si_si').text('登录')
+			})
+			$('.m_su').click(function(){
+				$(this).addClass('active');
+				$(this).siblings().removeClass('active');
+				$('.m_si_si').text('注册')
+			})
+		})
+	script.
+		$(function(){
+			$('.m_si_btn').click(function(){
+				checksiuser(function(){
+					checksipass(function(){
+						$.ajax({
+							url: '/user/signin',
+							cache: false,
+							method : 'POST',
+							data:{
+								username: $('#m_si_username').val(),
+								password: $('#m_si_password').val(),
+								path: $('.m_hd').val()
+							},
+							success: function(results){
+								if(results == 'failed'){
+									return m_si_info('登录失败 请检查用户名和密码');
+								}
+								else if(results == 'success'){
+									location.href = $('.inphd').val() || '/';
+								}
+							},
+							error: function(err){
+								return m_si_info('登录失败 请稍后重试');
+							}
+						})
+					})
+				})
+			})
+		})
+		function checksiuser(callback){
+			if(!$('#m_si_username').val() || /^\s+$/.test($('#m_si_username').val())){
+				return $('#m_si_username').focus();
+			}
+			else if($('#m_si_username').val().length > 20){
+				return m_si_info('用户名过长 请重新输入')
+			}
+			callback && callback()
+		}
+		function checksipass(callback){
+			if(!$('#m_si_password').val() || /^\s+$/.test($('#m_si_password').val())){
+				$('#m_si_password').focus();
+			}
+			else if($('#m_si_password').val().length > 20){
+				return m_si_info('密码过长 请重新输入')
+			}
+			callback && callback();
+		}
+		var t; 
+		function m_si_info(text){
+			clearTimeout(t);
+			var m_si_info = $('.m_si_info');
+			m_si_info.text(text).addClass('show');
+			t = setTimeout(function(){
+				m_si_info.removeClass('show');
+			},1000)
+		}
+		

@@ -1,0 +1,134 @@
+if page == 'movie'
+	.moviebox
+		.movie
+			.m_sort
+				h5 排序&nbsp;:
+				.m_sortbox
+					ul.m_sort_list
+						li 最多播放
+						li 最多收藏
+						li 添加时间
+					span.arrdown
+				.add_del
+					span.addbtn 添加&nbsp;&nbsp;
+					| |
+					span.chobtn &nbsp;&nbsp;选择&nbsp;&nbsp;
+					| |
+					span.delbtn &nbsp;&nbsp;删除
+			.m_list.clearfix
+				each item in results.movies
+					.m_item
+						img(src="#{item.poster}")
+						h5 #{item.name}
+						p 播放次数：（未上线）
+			- var len = Math.ceil(results.movielen / 15)
+			if len >= 2
+				ul.pagination
+					li#front.disabled
+						a(href="javascript:;") &laquo;
+					li.th.active
+						a(href="#page#{1}") 1
+					if len < 9 
+						- for(var i = 1 ; i < len ; i++)
+							li.th
+								a(href="#page#{i+1}") #{i+1}
+					else
+						-for(var i = 1 ; i < 9 ; i++)
+							li.th
+								a(href="#page#{i+1}") #{i+1}
+					li#next
+							a(href="javascript:;") &raquo;
+		//- 添加电影的盒子		
+		.addMovieBox
+			.closeBtn &times;
+			.input-group
+				input#s_movie.form-control(type="text" , placeholder="标题...")
+				span#s_btn.input-group-addon 确认
+			.searchRe
+			.addState
+				.addSuc
+					| 添加成功
+					span.glyphicon.glyphicon-ok
+				.addDef
+					| 添加失败
+					span.glyphicon.glyphicon-remove
+			.loading
+		script(src="/js/admin_control/movie.js")
+
+else if page == 'user'
+	.userbox
+		.usercate.clearfix
+			span.norU 普通用户
+			span.adminU 管理员
+			i.norcancel(style="display:none") 取消
+			i.nordels 批量删除
+			i.admAdd(style="display:none") 添加
+			em.btm
+				em
+		.norUlist.Ulist
+			.norUbody
+				.norUrow
+					each item in results.userAll
+						.norUcell
+							span.Ucho
+								em
+							span.Uname #{item.name}
+							span.Udel 注销
+		.adminUlist.Ulist
+			.adminUbody
+				ul.norUrow
+					each item in results.userAdm
+						li.norUcell
+							span.Uname #{item.name}
+							span.Udel 注销
+		script(src="/js/admin_control/user.js")
+		
+else if page == 'comment'
+	.commentbox
+else if page == 'cate'
+	.catebox
+		.cate.clearfix
+			each item in results
+				span(data-cateId="#{item._id}") #{item.name}
+					i.catebtn
+						i.cateadd 添加&nbsp;&nbsp;|
+						i.catecho &nbsp;&nbsp;选择&nbsp;&nbsp;|
+						i.catedel &nbsp;&nbsp;删除
+			em.btm
+				em
+			.addCateBox
+				.closeacb &times;
+				.nocateinfo(style='display:block')
+					| 当前没有未分类的影片
+					| 请前往电影添加目录进行操作
+				.nocatelist
+		- for(var i = 0 ; i < results.length ; i++)
+			.c_listbox
+				.c_list.clearfix
+					if results[i].movies
+						each item in results[i].movies
+							.c_item
+								img(src="#{item.poster}")
+								h5 #{item.name}
+								p 播放次数：（未上线）
+				- var len = Math.ceil(results[i].len / 15)
+				if len > 1
+					ul.pagination
+						li.front.disabled
+							a(href="javascript:;") &laquo;
+						li.th.active
+							a(href="#page1") 1
+						if len < 9
+							- for(var i = 1 ; i < len ; i++)
+								li.th
+									a(href="#page#{i+1}") #{i+1}
+						else 
+							- for( i = 1 ; i < 9 ; i++)
+								li.th
+									a(href="#page#{i+1}") #{i+1}
+						li.next
+							a(href="javascript:;") &raquo;
+	script(src="/js/admin_control/cate.js")
+					
+else if page == 'role'
+	.rolebox

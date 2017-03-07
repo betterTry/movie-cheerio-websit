@@ -1,0 +1,178 @@
+.bigPanel{
+	padding-right: 60px;
+	padding-left: 60px;
+	border-radius: 6px;
+	padding-top: 48px;
+	padding-bottom: 48px;
+	margin-bottom: 30px;
+	background-color: rgb(38 , 170, 128)
+}
+.bigPanel h1{
+	font-size: 60px;
+	font-weight: bold;
+	margin-bottom: 20px
+}
+.bigPanel p{
+	font-size: 18px;
+}
+.con{
+	padding-right: 0;
+	padding-left: 0;
+}
+.card{
+	margin-left: 0;
+	margin-right: 0;
+}
+/* 最新更新 */
+.lastupdate h3{
+	padding-left: 10px;
+}
+.lastupdatelist{
+	padding-top: 10px;
+	width: 100%;
+}
+.listitem{
+	width: 20%;
+	padding-right: 10px;
+	padding-left: 10px;
+	float: left;
+}
+.listitem img{
+	width: 100%;
+}
+.listitem a{
+	display: block;
+}
+.itemdep h5{
+	color: #111;
+	height: 18px;
+	margin-bottom: 3px;
+}
+.itemdep h5,.itemdep p{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* 手机端搜索框 */
+
+.m_searchBox{
+	display: none;
+}
+
+
+	
+@media (max-width: 1125px){
+	body{
+		min-width: 1100px
+	}
+	.container{
+		min-width: 970px;
+	}
+}
+@media (max-width: 768px){
+	body{
+		min-width: 0;
+	}
+	.container{
+		min-width:0 ;
+	}
+}
+
+@media (max-width: 500px){
+	.navbar{
+		margin-bottom: 0;
+	}
+	.bigPanel{
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		border-radius: 0
+	}
+	.bigPanel h1{
+		margin: 0;
+		font-size: 40px;
+		padding: 5px 0;
+	}
+	.bigPanel p {
+		font-size: 14px;
+	}
+	.lastupdate h3{
+		font-size: 20px;
+		margin: 5px 0;
+	}
+	.listitem{
+		width: 50%;
+		padding-right: 5px;
+		padding-left: 5px;
+	}
+	.listitem:nth-child(5){
+		display: none;
+	}
+	.itemdep h5{
+		font-size: 12px;
+		height: 14px;
+	}
+	.itemdep p{
+		font-size: 1rem;
+	}
+	/* 搜索 */
+	.m_searchBox {
+		position: relative;
+	}
+	.bigPanel p{
+		display: none;
+	}
+	.m_searchBox{
+		margin: 0;
+		padding: 5px;
+		width: 100%;
+		display: block;
+	}
+	.m_inputBox{
+		width: 100%;
+		height: 35px;
+		background: #fff;
+		border-radius: 3px;
+		padding: 0 5px;
+		position: relative;
+		color: #666;
+		font-size: 18px;
+	}
+	.m_searchBox input{
+		background: transparent;
+		border: 0;
+		outline: 0;
+		box-shadow: none;
+	}
+	.m_searchBox #m_search{
+		width: 100%;
+		padding-right: 35px;
+		height: 35px;
+		font-size: 16px;
+	}
+	/* 搜索btn */
+	.m_searchbtn{
+		position: absolute;
+		right: 5px;
+		width: 30px;
+		height: 34px;
+		line-height: 34px;
+	}
+	.m_searchbtn span{
+		border: 1px solid #f2f2f2;
+		display: inline-block;
+		width: 50px;
+		height: 40px;
+		background-color: #fff;
+		position: absolute;
+		z-index: 9999;
+		right: -5px;
+		line-height: 40px;
+		font-size: 16px;
+		font-family: '微软雅黑';
+		top: 34px;
+		border-bottom-left-radius: 2px;
+		border-bottom-right-radius: 2px
+	}
+
+}

@@ -1,0 +1,175 @@
+.bigPanel{
+	padding-right: 60px;
+	padding-left: 60px;
+	border-radius: 6px;
+	padding-top: 48px;
+	padding-bottom: 48px;
+	margin-bottom: 30px;
+	background-color: rgb(38 , 170, 128)
+}
+.bigPanel h1{
+	font-size: 60px;
+	font-weight: bold;
+	margin-bottom: 20px
+}
+.bigPanel p{
+	font-size: 18px;
+}
+.con{
+	padding-right: 0;
+	padding-left: 0;
+}
+.card{
+	margin-left: 0;
+	margin-right: 0;
+}
+/* 最新更新， 电影， 动画， 综艺 等 */
+.movieBox h3{
+	padding-left: 10px;
+}
+.movieBox h3 span{
+	display: inline-block;
+	margin-left: 10px;
+
+	font-size: 20px;
+	
+	font-style: normal;
+
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	line-height: 26px;
+}
+.card:first-child .movieBox h3 span:before{
+	font-family: 'new';
+	content: "\e61a";
+}
+.card:nth-child(2) .movieBox h3 span:before{
+	font-family: 'movie';
+	content: "\e70e";
+}
+.card:nth-child(3) .movieBox h3 span:before{
+	font-family: 'variety';
+	content: '\e6ae';
+}
+.card:nth-child(4) .movieBox h3 span:before{
+	font-family: 'tv';
+	content: "\e666";
+	display: inline-block;
+	vertical-align: top;
+}
+.card:nth-child(5) .movieBox h3 span:before{
+	font-family: 'ani';
+	content: "\e618";
+}
+.movielist{
+	padding-top: 10px;
+	width: 100%;
+}
+.listitem{
+	width: 20%;
+	padding-right: 10px;
+	padding-left: 10px;
+	float: left;
+}
+.listitem img{
+	width: 100%;
+}
+.listitem a{
+	display: block;
+}
+.itemdep h5{
+	color: #111;
+	height: 18px;
+	margin-bottom: 3px;
+}
+.itemdep h5,.itemdep p{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+/* 手机端搜索框 */
+
+.m_searchBox{
+	display: none;
+}
+
+
+/* 字体 */
+@font-face{
+	font-family: 'new';
+	src: url('../font/new/new.eot');
+	src: url('../font/new/new.eot') format('embedded-opentype'),
+	url('../font/new/new.woff') format('woff'),
+	url('../font/new/new.tff') format('truetype'),
+	url('../font/new/new.svg') format('svg');
+}
+@font-face{
+	font-family: 'tv';
+	src: url('../font/tv/tv.eot');
+	src: url('../font/tv/tv.eot') format('embedded-opentype'),
+	url('../font/tv/tv.woff') format('woff'),
+	url('../font/tv/tv.tff') format('truetype'),
+	url('../font/tv/tv.svg') format('svg');
+}
+@font-face{
+	font-family: 'movie';
+	src: url('../font/movie/movie.eot');
+	src: url('../font/movie/movie.eot') format('embedded-opentype'),
+	url('../font/movie/movie.woff') format('woff'),
+	url('../font/movie/movie.tff') format('truetype'),
+	url('../font/movie/movie.svg') format('svg');
+}
+@font-face{
+	font-family: 'variety';
+	src: url('../font/variety/variety.eot');
+	src: url('../font/variety/variety.eot') format('embedded-opentype'),
+	url('../font/variety/variety.woff') format('woff'),
+	url('../font/variety/variety.tff') format('truetype'),
+	url('../font/variety/variety.svg') format('svg');
+}
+@font-face{
+	font-family: 'ani';
+	src: url('../font/ani/ani.eot');
+	src: url('../font/ani/ani.eot') format('embedded-opentype'),
+	url('../font/ani/ani.woff') format('woff'),
+	url('../font/ani/ani.tff') format('truetype'),
+	url('../font/ani/ani.svg') format('svg');
+}
+
+.foot{
+	width: 100%;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 1.4rem;
+	color: #888;
+}
+.foot a{
+	display: inline-block;
+}
+.foot a:hover{
+	color: #555;
+	text-decoration: none;
+}
+
+
+	
+@media (max-width: 1125px){
+	body{
+		min-width: 1100px
+	}
+	.container{
+		min-width: 970px;
+	}
+}
+@media (max-width: 768px){
+	body{
+		min-width: 0;
+	}
+	.container{
+		min-width:0 ;
+	}
+}
+

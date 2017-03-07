@@ -1,0 +1,270 @@
+html , body{
+	height: 100%;
+	width: 100%;
+	font-size: 10px;
+}
+*{
+	margin: 0; padding: 0;
+}
+body{
+	padding-top: 50px; 
+	font-family: '微软雅黑';
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: #506470;
+	background-color: #f5f6f7;
+}
+/* 清除浮动 */
+.clearfix:before{
+	display: table;
+	content: " "
+}
+.clearfix:after{
+	display: table;
+	content: " ";
+	clear: both;
+}
+/* 清楚浮动 end */
+ul,li{
+	list-style: none;
+}
+em,i{
+	font-style: normal;
+}
+a{
+	color: inherit;
+}
+a:hover{
+	text-decoration: none;
+}
+h5{
+	margin-top: 5px;
+}
+
+/* container */
+.container{
+	padding: 0;
+}
+/* container end */
+
+/* 初始化样式 end */
+
+
+
+/* 设置整体card样式 */	
+.card{
+	box-shadow: 1px 1px 3px #e5e5e5;
+    background-color: #ffffff;
+    padding: 10px;
+    position: relative;
+  	margin: 5px 0;
+}
+.card:after,
+.card:before{
+	display: table;
+	content: " ";
+}
+.card:after{
+	clear: both;	
+}
+
+/* card end*/
+
+.form-group label{
+	font-size:1.4rem;
+}
+
+.bg{
+	background-color: #f5f6f7;
+}
+
+/* 重新设置navbar */
+._navbar{
+	padding:0;
+	min-height: 0;
+	background-color: #fff;
+	margin-bottom: 0;
+}
+._navbar .container-fluid{
+	padding: 0;
+}
+/* logo部分 */
+.navbar-heading{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+.navbar .navbar-brand{
+	height: 50px;
+	padding: 10px;
+	line-height: 30px;
+}
+/* end */
+
+
+/* header中的部分 */
+/* 搜索部分 */
+.m_searchBox{
+	width: 100%;
+	height: 100%;
+
+	padding-left: 45px;
+	padding-right: 46px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+	position: relative;
+
+}
+.m_inputBox{
+	width: 0;
+	height: 40px;
+	padding-right: 0;
+	border: 0;
+
+	transition: width .3s ease-out;
+	-webkit-transition: width .3s ease-out;
+	-ms-transition: width .3s ease-out;
+}
+.m_inputBox_show{
+	width: 100%;
+	padding-right: 30px;
+	border-radius: 2px;
+	background: transparent;
+	border: 1px solid #e5e5e5;
+}
+#m_search{
+	width: 100%;
+	height: 100%;
+	border: 0;
+	outline: 0;
+	box-shadow: none;
+	text-indent: 5px;
+
+	font-size: 14px;
+}
+
+
+/* 搜索按钮 */
+.m_search_btn{
+	font-size: 18px;
+	line-height: 40px;
+	vertical-align: top;
+
+	position: absolute;
+	
+	padding-left: 5px;
+	padding-right: 10px;
+	right: 45px;
+	top: 5px;
+}
+.m_search_btn_choose{
+	color: #53b7f7;	
+}
+
+/* 搜索引擎的选择 */
+.m_search_btn span{
+	border: 1px solid #e5e5e5;
+	display: inline-block;
+	width: 50px;
+	height: 40px;
+
+	text-align: center;
+
+	background-color: #fff;
+	position: absolute;
+	z-index: 9999;
+	line-height: 40px;
+	font-size: 16px;
+	font-family: '微软雅黑';
+
+	top: 40px;
+	right: 1px;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px
+}
+/* 搜索引擎的选中样式 */
+.m_search_btn_choose .m_ysl{
+	border-top: 0;
+	top: 39;
+}
+
+
+/* 手机登录和用户框 */
+#mobel_userBox {
+	margin-right: 0px;
+	line-height: 50px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+/* 登录和注册 */
+.m_userbtn{
+	display: inline-block;
+}
+
+/* 头像 */
+.m_headbox{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	margin-top: 5px;
+	float: right;
+	margin-right: 5px;
+}
+.m_headbox, .m_headbox_big{
+	overflow: hidden;
+}
+/* 大头像 */
+.m_headbox_big{
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	margin: 5px auto;
+}
+.m_headbox img , .m_headbox_big img{
+	width: 100%;
+	vertical-align: top;
+}
+/* 点击头像之后弹出来 */
+.m_infoBox{
+	width: 50%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100000;
+	color: #fff;
+	text-align: center;
+
+	-webkit-transform: translateX(100%);
+	-moz-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	transform: translateX(100%);
+
+	-webkit-transition: transform .3s ease-out;
+	-ms-transition: transform .3s ease-out;
+	transform: transform .3s ease-out;
+
+	display: block;
+
+}
+.m_info_show{
+	-webkit-transform: translateX(0);
+	-moz-transform: translateX(0);
+	-ms-transform: translateX(0);
+	transform: translateX(0);
+}
+/* 头像下面的介绍内容 */
+.m_info_content{
+	width: 100%;
+}
+.m_info_content h5{
+	height: 30px;
+	line-height: 30px;
+}
+
+

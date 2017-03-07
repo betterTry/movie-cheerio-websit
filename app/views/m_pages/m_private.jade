@@ -1,0 +1,61 @@
+extends ../m_layout
+block head
+	link(href="/m_css/m_private.css", rel="stylesheet")
+block content 
+	.container.private
+		.top.card
+			.headBox
+				.headimg
+					img(src="#{user.head}")
+					.headchange 修改
+				.headName #{user.name}
+			.topcontent
+				.navtop
+					ul.navlist
+						li 主页
+						li 收藏
+						li 订阅
+						li 管理
+						li 个人信息
+						em.underline
+							em
+			.cHeadBox
+				.oldH
+				.uploadBox
+					.uploadbtn
+		.middle.card
+			.look
+				h5 我最近的浏览
+				ul.looklist
+					li
+						img
+						h5
+						p
+					li
+					li
+			.collection
+				h3 我的收藏
+					span
+					span.collectdelete 删除
+				ul.collectlist.clearfix
+					if user.collections.length > 0
+						each item in user.collections
+							li.collectli
+								.posterbox
+									img(src="#{item.poster}")
+								h5 #{item.base_name.name}
+								p.collectli_info #{item.base_name.base_name}
+		
+	script.
+		$(function(){
+		
+			$('.navlist>li').each(function(index , item){
+				$(item).click(function(){
+
+					$('.navlist>li').css('color', '');
+					var width = $(this).width();
+					$(this).css('color', '#33a3dc')
+					$('.underline').css('-webkit-transform' , 'translateX(' + index * width + 'px)')
+				})
+			})
+		})

@@ -1,0 +1,289 @@
+/* 基础样式 */
+a:hover{
+	text-decoration: none
+}
+
+/* 海报 */
+.s_poster{
+	width: 80px;
+	position: relative;
+	float: left;
+}
+.s_poster img{
+	width: 100%;
+}
+/* 海报 end */
+
+/* 背景为green */
+.bgg{
+	background-color: rgb(38 , 170, 128);
+	color: #fff;
+}
+
+/* 节目列表*/
+.s_list{
+	width: 100%;
+	padding-left: 90px;
+}
+.s_list:before{
+	content: "";
+	display: table;
+}
+
+
+/* 所有的细节列表 */
+/* 列表盒子 */
+.s_itemsBox{
+	height: 60%;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+	display: block;
+	margin: 0;
+	left: 0;
+	z-index: 100001;
+	overflow: scroll;
+}
+/* 列表 */
+.s_items{
+	width: 100%;
+	background-color: #fbfcff;
+	color: #000;
+}
+li{
+	float: left;
+	border: 1px solid #d8e1f2;
+}
+
+/* s_variety中 除了hot之外的a样式*/
+.s_variety .s_items li:not(.hot) a{
+	display: block;
+	width: 100%;
+	padding: 10px 15px;
+	font-size: 1.4rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+/* 列表中的a */
+.s_tv .s_items li a{
+	width: 100%;
+	padding: 15px;
+	display: block;
+	font-size: 14px;
+}
+/* end */
+
+/* 电视的列表 */
+.s_tv .s_items li{
+	width: 14.28%;
+	background-color: #fff;
+	border-top: 0;
+}
+/* 第一列上边框不为0 */
+.s_tv .s_items li:nth-child(1),.s_tv .s_items li:nth-child(2),.s_tv .s_items li:nth-child(3),
+.s_tv .s_items li:nth-child(4),.s_tv .s_items li:nth-child(5),.s_tv .s_items li:nth-child(6),
+.s_tv .s_items li:nth-child(7){
+	border-top: 1px solid #d8e1f2;;
+}
+/* 除了开头一列的走边框为0 */
+.s_tv .s_items li:not(:nth-child(7n+1)){
+	border-left: 0;
+}
+/* 开头一列的走边框为1 */
+.s_tv .s_items li:nth-child(7n+1){
+	border-left: 1px solid #d8e1f2;
+}
+
+
+/* 综艺的列表 */
+.s_variety .s_items li{
+	width: 100%;
+	background-color: #fff;
+}
+.s_variety .s_items li:not(:nth-child(1)){
+	border-top: 0;
+}
+.s_variety .s_items li:nth-child(even){
+	border-left: 1px solid #d8e1f2;
+}
+
+
+
+/* 前两个如果为hot */
+.s_items ul .hot{
+	height: 80px;
+	padding:10px;
+	border-bottom: none;
+}
+.reg{
+	margin-right: 10px;
+}
+
+/* 介绍 */
+.s_info{
+	position: relative;
+}
+.s_area , .s_figure{
+	display: inline-block;
+	margin-left: 20px
+}
+.s_base span, .s_base{
+	font-size: 14px;
+}
+.s_base .base_name{
+	margin-bottom: 5px;
+}
+.s_info em{
+	font-size: 12px;
+}
+/* 演员等*/
+.s_figure{
+	margin-left: 0px;
+}
+
+/* 介绍结束 */
+
+
+
+/* 列表中显示图片的li*/
+.hot .pic{
+	width: 112px;
+	height: 63px;
+	display: inline-block;
+	float: left;
+	position: relative;
+}
+.hot a{
+	padding: 10px 8px;
+	position: relative;
+	display: block;
+}
+.pic img{
+	width: 100%;
+}
+.pic span{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #fff;
+}
+/* 小介绍 */
+.hot .info{
+	vertical-align: top;
+	padding-left: 120px;
+}
+.hot .tit{
+	word-break: break-all;
+	width: 100%;
+	height: 40px;
+	line-height: 20px;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+/* hot end */
+.info p{
+	overflow: hidden;
+	word-break: keep-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-bottom: 0;
+}
+
+/* s_movie中的播放按钮 */
+.s_act , .s_act_no{
+	margin-top: 10px;
+	zoom: 1;
+}
+.s_act_no{
+	color: #519cdc;
+}
+/* end */
+
+/* 播放按钮 */
+.btn_play, .choosePlay{
+	font-size: 16px;
+	padding: 0 20px;
+	line-height: 40px;
+}
+.btn_play{
+	display: inline-block;
+	background-color: #53b7f7;
+	text-align: center;
+	color: #fff;
+	vertical-align: top;
+}
+/* 电视剧和综艺的播放按钮 */
+
+.s_tv .btn_play, .s_variety .btn_play{
+	padding: 0 10px;
+}
+/* 播放按钮 end */
+
+/* 选集的标题 */
+.playsTitle{
+	display: block;
+	padding: 15px;
+}
+/* end */
+
+/* 选集按钮 */
+.choosePlay{
+	border: 1px solid #53b7f7;
+	background-color: #fff;
+	line-height: 38px;
+	margin-left: 20px;
+	display: inline-block;
+}
+/* end */
+
+/* 名字 */
+.base_name{
+	display: inline-block;
+	margin-top: 0;
+	cursor: pointer;
+}
+/* end */
+/* 类型*/
+.base_type{
+	margin-left: 20px
+}
+
+/* 播放按钮中的箭头 */
+.ico_arrr{
+	width: 0;
+	height: 0;
+	display: inline-block;
+	margin-top:12px;
+	vertical-align: top;
+	border-width: 8px 12px;
+	border-style: dashed dashed dashed solid;
+	border-color: transparent transparent transparent #fff;
+}
+		
+
+/* 文字高亮 */
+.c_highred{
+	color: #d00
+}
+.base_name:hover{
+	color: #5da7e6;
+}
+	
+/* 选集之后全屏变黑*/
+.m_choosePlay_curtain{
+	display: none;
+	opacity: 1;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: 10000;	
+}
+
+

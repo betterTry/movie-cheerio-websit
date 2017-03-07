@@ -1,0 +1,232 @@
+._navbar.navbar.navbar-fixed-top
+	.container-fluid
+		.navbar-heading
+			a.navbar-brand(href="/") mxysl
+		#navbar.navbar-collapse.collapse
+			.navbar-form.navbar-right
+				.searchBox
+					form(role="form",action="/movie/search",method="POST")
+						input#search.form-control(type='text',name="m",placeholder='请尽量输入全称哦~')
+						input#search_tool(type="hidden" , name="tool" , value="搜索")
+						| &nbsp;
+						.btn-group
+							button.btn.btn-default#first-btn 搜索
+							.btn.btn-default#second-btn 优酷
+				if user
+					.headbox.pull-right
+						.headets
+							.headimg
+								img(src= user.head)
+							.headinfo
+								em
+									if user.role >= 10
+										h5 
+											a(href="/admin/control") 管理员后台
+									h5 
+										a(href="/user/private") 个人中心
+									h5.logout
+										a(href="/logout") 退出
+								span
+						.headname
+							| #{user.name}
+							span 
+				else
+					.btn-group
+						button.btn.btn-default(data-toggle='modal',data-target='#sUpModal') 登录
+						button.btn.btn-success(data-toggle='modal',data-target='#logInModal') 注册
+		#mobel_userBox
+			if user
+				.m_headbox
+					img(src= user.head)
+			else
+				#m_su.m_userbtn
+					a(href="signup") |&nbsp;注册
+				#m_si.m_userbtn
+					a(href="signin") 登录&nbsp;
+if user
+	.m_infoBox
+		.m_headbox_big
+			img(src= user.head)
+		.m_info_content
+			h5 #{user.name}
+			if user.role >= 10
+				h5 
+					a(href="/admin/control") 管理员后台
+			h5 
+				a(href="/user/private") 个人中心
+			h5.logout
+				a(href="/logout") 退出
+
+<!-- login and signup-->
+#sUpModal._modal.modal.fade(tabindex="-1",role="dialog")
+	._modal_dialog.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button",data-dismiss="modal") &times;
+				h4 登录
+			.modal-body
+				h4.fc_brown 账号登录
+				br
+				.row
+					.col-xs-11.col-xs-offset-1
+						form(role="form")
+							.input-group
+								span.input-group-addon.glyphicon.glyphicon-user
+								input#si_username.has-success.has-feedback.form-control(type="text",name="username",placeholder="账号或昵称")
+								span.nobg.input-group-addon.fs10(style="visibility:hidden") 忘记密码？
+							p.siinfo.siinfo_user.p_hidden
+							.input-group
+								.input-group-addon.glyphicon.glyphicon-lock
+								input#si_password.form-control(type="password",name="password",placeholder="账号密码")
+								a.nobg.input-group-addon.fs10 忘记密码？
+							p.siinfo.siinfo_code.p_hidden
+							input.inphd(type="hidden",name="path")
+			.modal-footer
+				button#btn_si._btn.btn.btn-primary(type="submit") 登录
+				p.fs10 
+					|没有账号？
+					a 快速注册
+				.sitip(style="display:none")
+					span.si_tipcontent
+						span.tip_icon ！
+						span.tiptxt 用户名或密码错误
+					span.tipbox
+
+#logInModal._modal.modal.fade(tabindex="-1",role="dialog")
+	._modal_dialog.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button",data-dismiss="modal") &times;
+				h4 注册
+			.modal-body
+				.row
+					.col-xs-10.col-xs-offset-1
+						form(role="form")
+							br
+							.input-group
+								span.input-group-addon.glyphicon.glyphicon-user
+								input#su_username.form-control(type="text",name="username",placeholder="账号或昵称")
+							//- 验证提示
+							p.suinfo.suinfo_user.p_hidden
+							.input-group
+								span.input-group-addon.glyphicon.glyphicon-lock
+								input#su_password.form-control(type="password",name="password",placeholder="账号密码")
+							//- 验证提示
+							p.suinfo.suinfo_code.p_hidden
+							.input-group
+								span.input-group-addon.glyphicon.glyphicon-lock
+								input#su_passwordCopy.form-control(type="password", placeholder="重复密码")
+							//- 验证提示
+							p.suinfo.suinfo_copy.p_hidden
+							input.inphd(type="hidden",name="path")
+							p.protocolBox
+								input#protocol(type="checkbox",name="protocol",checked="checked",value="on")
+								label#protocollabel(for="#protocol")
+									|同意
+									a 《网站注册协议及版权声明》
+			.modal-footer
+				button#btn_su._btn.btn.btn-primary(type="submit") 注册
+				p.fs10
+					|已有账号？
+					a 登录
+				.sutip(style="display:none")
+					span.su_tipcontent
+						span.tip_icon ！
+						span.tiptxt 注册失败
+					span.tipbox
+
+script.
+	function getPos(event){
+		var e = event || window.event;
+		var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		var x = e.pageX || e.clientX + scrollX;
+		var y = e.pageY || e.clientY + scrollY;
+		return {x: x , y: y}
+	}
+	function getWandH(elem){
+		var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		var w = 0 , h = 0;
+		do{
+			w += elem.offsetLeft;
+			h += elem.offsetTop;
+		}
+		while((elem = elem.offsetParent) && elem.offsetParent )
+		return {w: w + scrollX , h: h + scrollY}
+	}
+	$(function(){
+		var path = location.href.replace(location.protocol+'/','').replace(location.host+'/','')
+		$('.inphd').val(path);
+		$('.logout a').attr('href' , '/logout?p='+path);
+
+		$('.headbox').mouseover(function(e){
+			$(this).addClass('open');
+		})
+		$('.headbox').mouseout(function(e){
+			var x = getPos(e).x,
+				y = getPos(e).y;
+			var w = getWandH(this).w,
+				h = getWandH(this).h;
+			var _w = $(this).outerWidth(),
+				_h = $(this).outerHeight();
+			if(x > w && x < w+_w && y > h && y < h+_h){}
+			else{
+				$(this).removeClass('open');
+			}
+		})
+		$('#first-btn').click(function(e){
+			if(/^\s*$/.test($('#search').val())){
+				e.preventDefault();
+				if($('.searchBox .btn-group').hasClass('btn-group-on')){
+					$('.searchBox .btn-group').removeClass('btn-group-on')
+				}
+				else{
+					$('.searchBox .btn-group').addClass('btn-group-on');
+				}
+			}
+		})
+		$('#second-btn').click(function(){
+			var text = $('#first-btn').text()
+			$('#first-btn').text($('#second-btn').text())
+			$('#second-btn').text(text);
+			$('.searchBox .btn-group').removeClass('btn-group-on');
+			$('#search_tool').val($('#first-btn').text());
+		})
+		
+
+		//如果用户存在;
+		if($('.m_infoBox')){
+			var m_infoBox = $('.m_infoBox');
+			$('.m_headbox').click(function(){
+				//显示区域;
+				console.log('click')
+				m_infoBox.addClass('m_info_show');
+				_self = $(this);
+				_self.css('display', 'none');
+
+				m_infoBox.on('transitionend', function(){
+					$(window).click(function(e){
+						var x = getPos().x,
+							_x = $(this).innerWidth()*0.5;
+						console.log(x, _x);
+						if(x < _x){
+							m_infoBox.removeClass('m_info_show');
+							_self.css('display', 'block');
+							m_infoBox.unbind('transitionend');
+							$(window).unbind('click');
+						}
+					})					
+				})
+			})
+
+			
+		}
+	})
+script(src="/js/check.js")
+		
+				
+			
+		
+
+		

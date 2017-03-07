@@ -1,0 +1,86 @@
+extends ../layout
+block head
+	link(href="/css/admin_control.css",rel="stylesheet")
+block content
+	.slider
+		ul.nav.slider_nav
+			li.movie.active
+				a(href='#movie') 电影
+			li.user
+				a(href="/user") 用户
+			li.comment
+				a(href="#comment") 评论
+			li.cate
+				a(href="#category") 种类
+			li.role
+				a(href="#role") 权限
+	//- 管理内容
+	.content
+		.card.something
+	
+	
+
+	script.
+		$(function(){
+			var state = {page: '#{page}'};
+			var PAGE = $('.#{page}');
+			if(!PAGE.hasClass('active')){
+				$('.active').removeClass('active');
+				PAGE.addClass('active');
+			}
+
+
+			history.replaceState(state, null , '/admin/control/#{page}')
+			
+			$.ajax({
+				url: '/search/adminpage?page=#{page}',
+				success: function(results){
+					$('.something').html(results);
+				}
+			})
+			var state = ['movie', 'user', 'comment', 'cate', 'role'];
+			$('.slider_nav li').each(function(index , item){
+				$(item).click(function(e){
+					e.preventDefault();
+					var _page = $('.something').children().attr('class').replace('box', '');
+					if(_page !== state[index]){
+						history.replaceState(state, null , '/admin/control/'+state[index]);
+						getPage(state[index]);
+					}
+					//样式部分;
+					$('.slider_nav > li').removeClass('active');
+					$(this).addClass('active');
+					$('.something > div').each(function(i , elem){
+						if(i == index){
+							$(elem).css('display' , 'block');
+						}
+						else{
+							$(elem).css('display' , 'none');
+						}
+					});
+				});
+					
+			});
+
+	
+
+
+			//动态拿到page值;
+			function getPage(page){
+				$.ajax({
+					url: '/search/adminpage?page=' + page,
+					success: function(results){
+						if(results.length){
+							var something = $('.something');
+							something.children().remove();
+							something.html(results);
+						}
+					}
+
+				});
+			}	
+		});
+	script(src="/js/admin_control.js")
+
+					
+				

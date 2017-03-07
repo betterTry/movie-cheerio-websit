@@ -1,0 +1,129 @@
+extends ../m_layout
+block head
+	link(href="/m_css/m_admin_control.css",rel="stylesheet")
+block content
+	.slider
+		ul.nav.slider_nav
+			li.movie.active.glyphicon.glyphicon-film
+			li.user.glyphicon.glyphicon-user
+			li.comment.glyphicon.glyphicon-pencil
+			li.category.glyphicon.glyphicon-tags
+			li.role.glyphicon.glyphicon-leaf
+			.hideslider.glyphicon.glyphicon-log-out
+		//- 管理内容
+	.content
+		.card.something
+			.moviebox
+				.boxTitle 电影
+				.movie
+					.m_sort
+						h5 排序&nbsp;:
+						.m_sortbox
+							ul.m_sort_list
+								li 最多播放
+								li 最多收藏
+								li 添加时间
+							span.arrdown
+						.add_del
+							span.addbtn 添加&nbsp;&nbsp;
+							| |
+							span.chobtn &nbsp;&nbsp;选择&nbsp;&nbsp;
+							| |
+							span.delbtn &nbsp;&nbsp;删除
+					.m_list.clearfix
+						each item in movie
+							.m_item
+								img(src="#{item.poster}")
+								h5 #{item.name}
+								p 播放：（未上线）
+					- var len = Math.ceil(movielen / 15)
+					if len > 1
+						ul.pagination
+							li#front.disabled
+								a(href="javascript:;") 上一页
+							li.th
+								a 1
+							li#next
+								a(href="javascript:;") 下一页
+			//- 用户盒子
+			.userbox
+				.boxTitle 用户
+				.usercate.clearfix
+					span.norU 普通
+					span.adminU 管理员
+					i.nordels 批量删除
+					i.admAdd(style="display:none") 添加
+					em.btm
+				.norUlist.Ulist
+					.norUbody
+				.adminUlist.Ulist
+					.adminUbody
+				.delUstate
+				.admAddPanel
+			//- 评论盒子
+			.commentbox
+				.boxTitle 评论
+			//- 分类盒子
+			.categorybox
+				.boxTitle 分类 
+				.cate.clearfix
+					each item in cates
+						span(data-cateId="#{item._id}") #{item.name}
+					em.btm
+						em
+					.addCateBox
+						.closeacb &times;
+						.nocateinfo(style='display:block')
+							| 当前没有未分类的影片
+							| 请前往电影添加目录进行操作
+						.nocatelist
+				- for(var i = 0 ; i < cates.length ; i++)
+					.c_list.clearfix
+						if cates[i].movies
+							each item in cates[i].movies
+								.c_item
+									img(src="#{item.poster}")
+									h5 #{item.name}
+									p 播放次数：（未上线）
+							- var len = Math.ceil(catelen / 15);
+							if len > 2
+								ul.pagination
+									li#front
+										a(href="javascript:;") &laquo;
+									- for(var i = 1 ; i < 9 ; i++)
+										li.th
+											a(href="javascript:;") #{i}
+									- for(var i = 9 ; i < 11 ; i++)
+										li.th(style="display:none")
+											a(href="javascript:;") #{i}
+									li#next
+										a(href="##") &raquo;
+			//- 权限盒子
+			.rolebox
+				.boxTitle 权限
+		.showslider.glyphicon.glyphicon-log-in
+		- var len = Math.ceil(movielen / 15)
+		if len > 1 && len < 9
+			ul.pageshow(style="display:none")
+				- for(var i = len ; i > 1 ; i--)
+					li
+						| 第 #{i} 页
+						em 
+	.pageMark(style="display:none")
+	
+			
+
+	script(src="/m_js/m_admin_control.js")
+	script.
+		$(function(){
+			$('.showslider').click(function(){
+				$('.slider').addClass('slider_show');
+			});
+			$('.hideslider').click(function(){
+				$('.slider').removeClass('slider_show');
+			});
+		})
+		
+
+					
+				

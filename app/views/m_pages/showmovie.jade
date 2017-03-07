@@ -1,0 +1,24 @@
+extends ../layout
+block head
+	link(href="/css/showmovie.css",rel="stylesheet")
+block content
+
+	.movie
+		.card.clearfix
+			.moviearea
+				iframe(src="http://player.youku.com/embed/#{movieid}==",name="videobox" scrolling="no",frameborder="0" , width="100%",height='100%')
+			.danmuarea
+	script.
+		(function(){
+			var client = $(window).width();
+			if(/Android|webOS|iPhone|iPad|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || client <= 768){
+				var width = $('.moviearea').width();
+				$('.moviearea').height(width * 0.75 + 'px');
+			}
+			$('.navbar').removeClass('navbar-fixed-top');
+		})();
+		$(window).resize(function(e){
+			var width = $('.moviearea').width();
+			$('.moviearea').height(width * 0.75 + 'px');
+		})
+
